@@ -17,7 +17,7 @@ $(document).ready(function () {
       if (validatefno() && validatesno()) {
         var result = calculate(num1, num2, operation);
         if(result === "Infinity"){
-          showError($("#answererror"), "Undefined, Please check your number.");
+          showError($("#answererror"), "Error, Please check your number.");
         }
         else{
           hideError($("#answererror"));
@@ -50,7 +50,7 @@ $(document).ready(function () {
     const validatesno = () => {
         var sno = $("#sno").val();
         if(sno === ""){
-          showError($("#snoError"), "Input cant must be empty");
+          showError($("#snoError"), "Cant math if there is no math, please input numbers");
           return false;
         }
         else if (!$.isNumeric(sno)) {

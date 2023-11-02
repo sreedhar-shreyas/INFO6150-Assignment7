@@ -17,6 +17,7 @@ $(document).ready(function () {
     $("#cpassword").on("input", function () {
       validateConfirmPassword();
       checkValidity();
+
     });
   
     let UnameValid = false;
@@ -175,7 +176,7 @@ $(document).ready(function () {
         window.location.href = "./calc.html";
       })
     } else {
-      $("#contact_submit  ").prop("disabled", true);
+      $("#contact_submit").prop("disabled", true);
     }
   }
   checkValidity();

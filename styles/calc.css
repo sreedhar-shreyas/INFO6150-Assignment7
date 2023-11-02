@@ -28,3 +28,7 @@ input{
     height: 30px;
     margin-top: 20px;
 }
+.error{
+    font-size: 10px;
+    color: red;
+}

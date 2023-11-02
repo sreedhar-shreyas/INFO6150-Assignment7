@@ -3,6 +3,17 @@
 *{
     font-family: 'poppins', sans-serif;
 }
+body{
+     background-image: url('../images/bg_3.png');
+     background-size: 50%;
+
+
+
+}
+
+p{
+    text-align: center;
+}
 #contact label{
     display: inline-block;
 
