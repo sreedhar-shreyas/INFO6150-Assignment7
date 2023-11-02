@@ -14,7 +14,7 @@ $(document).ready(function () {
       checkValidity();
     });
   
-    $("#confirmPassword").on("input", function () {
+    $("#cpassword").on("input", function () {
       validateConfirmPassword();
       checkValidity();
     });
@@ -24,7 +24,7 @@ $(document).ready(function () {
     let passwordValid = false;
     let confirmPasswordValid = false;
   
-    function validateUName() {
+    const validateUName = () => {
       var name = $("#uname").val();
       let specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/g;
       if (name === "") {
@@ -55,7 +55,7 @@ $(document).ready(function () {
       }
     }
   
-    function validateEmail() {
+    const validateEmail = () => {
       var email = $("#email").val();
       var emailRegex = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(northeastern)\.edu$/;
       var emailTest = emailRegex.test(email);
@@ -75,7 +75,7 @@ $(document).ready(function () {
       }
     }
   
-    function validatePassword() {
+    const validatePassword = () => {
       let alphanumeric = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
       let lowercaseRegex = /[a-z]/g;
       let uppercaseRegex = /[A-Z]/g;
@@ -86,20 +86,17 @@ $(document).ready(function () {
       if (password.length < 8) {
         showError(
           $("#password"),
-          $("#feedback-password"),
-          "Password cannot be empty"
+          $("#pass_error"),
+          "Passwords need to be 8 characters minimum"
         );
-  
-        passwordStrength.addClass("text-danger");
-        passwordStrength.html("Weak");
       } else if (!alphanumeric.test(password)) {
         showError(
           $("#password"),
-          $("#feedback-password"),
-          "Try a mix of letters and numbers"
+          $("#pass_error"),
+          "Please use letters and numbers"
         );
  
-        passwordStrength.addClass("text-danger");
+        passwordStrength.addClass("error");
         passwordStrength.html("Weak");
       } else if (password.length >= 8 && alphanumeric.test(password)) {
         if (
@@ -111,19 +108,17 @@ $(document).ready(function () {
         ) {
           showError(
             $("#password"),
-            $("#feedback-password"),
-            "Your password must contain a combination of uppercase and lowercase letters, as well as at least one special character. Please ensure your password meets these requirements for enhanced security."
+            $("#pass_error"),
+            "Please include least 1 uppercase, lowercase letters and one special character."
           );
      
-          passwordStrength.removeClass("text-danger").addClass("text-warning");
+          passwordStrength.removeClass("error").addClass("error");
           passwordStrength.html("Medium");
         } else {
-          showSuccess($("#password"), $("#feedback-password"), "");
-         
-        
+          showSuccess($("#password"), $("#pass_error"), "");
           passwordStrength
-            .removeClass("text-danger text-warning")
-            .addClass("text-success");
+            .removeClass("error")
+            .addClass("success");
           passwordStrength.html("Strong");
           isPasswordValid = true;
           passwordValid = true;
@@ -133,31 +128,33 @@ $(document).ready(function () {
   
     function validateConfirmPassword(){
       var password = $("#password").val();
-      var confirmPassword = $("#confirmPassword").val();
+      var confirmPassword = $("#cpassword").val();
+      console.log("cpass"+confirmPassword)
       if(password === confirmPassword){
-          showSuccess($("#confirmPassword"), $("#feedback-confirmPassword"), "");
+
+          showSuccess($("#cpassword"), $("#cpass_error"), "");
           confirmPasswordValid = true;
       }
       else{
-          showError($("#confirmPassword"),$("#feedback-confirmPassword"),"Password and Confirm Password doesnot match")
+          showError($("#cpassword"),$("#cpass_error"),"Passwords dont match")
       }
   
     }
   
   
     function showSuccess(element, feedbackElement, message) {
-      element.removeClass("is-invalid").addClass("is-valid");
+      element.removeClass("error_form").addClass("success_form");
       feedbackElement
-        .removeClass("invalid-feedback")
-        .addClass("valid-feedback")
+        .removeClass("error")
+        .addClass("success")
         .text(message);
     }
   
     function showError(element, feedbackElement, message) {
-      element.removeClass("is-valid").addClass("is-invalid");
+      element.removeClass("success_form").addClass("error_form");
       feedbackElement
-        .removeClass("valid-feedback")
-        .addClass("invalid-feedback")
+        .removeClass("success")
+        .addClass("error")
         .text(message);
     }
   
@@ -166,19 +163,19 @@ $(document).ready(function () {
       localStorage.setItem("name", name);
     }
   
-    $("#submit-button").on("submit", function (event) {
+    $("#contact_submit").on("submit", function (event) {
       localStorage.setItem("name",$("#uname").val());
   })
   
   function checkValidity() {
     if (UnameValid && emailValid && passwordValid && confirmPasswordValid) {
-      $("#submit-button").prop("disabled", false);
-      $("#submit-button").click(function(){
-        $("#form")[0].reset();
+      $("#contact_submit").prop("disabled", false);
+      $("#contact_submit").click(function(){
+        $("#contact")[0].reset();
         window.location.href = "./calc.html";
       })
     } else {
-      $("#submit-button").prop("disabled", true);
+      $("#contact_submit  ").prop("disabled", true);
     }
   }
   checkValidity();
